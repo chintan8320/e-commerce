@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer utilities {
+  .text-gradient-themetextcolor {
+    background: linear-gradient(to bottom, #fecc00, #e85222);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+}
+
+body {
+  /* background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb)); */
+}
+
+.bg_hero {
+  background-image: url("/images/hero/Hero_page.png");
+  
+  background-repeat: no-repeat;
+  /* display: flex; */
+  height: 746px;
+  background-size: cover;
+  width: 100%;
+}
+
+.offer_img {
+  background-image: url("/images/offer/offer-img.png");
+  
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px;
+  width: 100%;
+}
+
+.slick-dots li button:before {
+  background: #facc15;
+  border-radius: 50%;
+  color: transparent;
+  content: "" !important;
+  position: absolute;
+  
+}
+
+.slick-dots{
+  bottom:0;
+}
+
+
+.aboutus {
+  background-image: url("/images/aboutpage/aboutimg11.png");
+  background-repeat: no-repeat;
+  /* display: flex; */
+  height: 269px;
+  object-fit: fill;
+  width: 100%;
+}
+
+/* .explorecard:hover{
+  background: linear-gradient(to top, red, yellow) !important;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-clip: text;
+  background: linear-gradient(180deg, #ABA77A 0%, #FECC00 0.01%, #E85222 100%);
+
+} */
+
+.testimonial {
+  display: grid !important;
+  grid-column: 2;
+}
+
+.formsletter {
+  background-image: url("/images/aboutpage/aboutimg2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 185px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footerbg {
+  background-image: url("/images/Footer/Fotterbg.png");
+  background-repeat: no-repeat;
+
+  /* display: flex; */
+  height: 479px;
+  background-size: cover;
+  width: 100%;
+}
+.mapbg {
+  background-image: url("/images/map/map.png");
+  background-repeat: no-repeat;
+  height: 504px;
+  background-size: cover;
+  width: 100%;
+}
+
+/* svg:hover #icon {
+  fill: white;
+} */
+
+.hovered-svg:hover {
+  stroke: white;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  pointer-events: all;
+  width: 24px;
+  height: 24px;
+  -webkit-appearance: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .slick-dots {
+    display: flex;
+    /* bottom: 10px !important; */
+    justify-content: center;
+    margin: auto;
+    transform: translate(37%, -28%);
+    padding-left: 10px;
+    left: -36%;
+    position: relative;
+    top: 93%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .slick-dots {
+    display: flex;
+    /* bottom: 90px !important; */
+    justify-content: center;
+    margin: auto;
+    transform: translate(50%, -115%);
+    left: -50%;
+  }
+}
+
+.custom-checkbox {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Hidden default checkbox input */
+.custom-checkbox input {
+  display: none;
+}
+
+/* Style for the custom checkbox with gradient background */
+.custom-checkbox input:checked + label::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(
+    to bottom,
+    #ffcc00,
+    #ff6600
+  ); /* Gradient colors */
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

@@ -1,0 +1,36 @@
+import React from "react";
+
+const RightArrow1 = () => {
+  return (
+    <svg
+      width="20"
+      height="15"
+      viewBox="0 0 20 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M18.1818 7.5H1M12.4545 1L19 7.5L12.4545 14"
+        stroke="url(#paint0_linear_419_1695)"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_419_1695"
+          x1="10"
+          y1="1"
+          x2="10"
+          y2="14"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#FECC00" />
+          <stop offset="1" stop-color="#E85222" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
+
+export default RightArrow1;
