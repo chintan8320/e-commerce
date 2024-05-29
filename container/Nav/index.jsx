@@ -8,7 +8,7 @@ import { useState } from "react";
 const navigation = [
   { name: "Home", href: "/", current: true },
   { name: "About us", href: "/about", current: false },
-  { name: "Products", href: "/products", current: false },
+  { name: "Products", href: "/product/all", current: false },
   { name: "Categories", href: "/category", current: false },  
   { name: "Contact", href: "/contact", current: false },
 ];
@@ -67,7 +67,7 @@ const Nav = () => {
                               item.current
                                 ? "text-[#facc15]"
                                 : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                              "px-3 py-2 text-sm font-medium"
+                              "px-3 py-2 text-sm font-medium cursor-pointer"
                             )}
                             aria-current={item.current ? "page" : undefined}
                           >

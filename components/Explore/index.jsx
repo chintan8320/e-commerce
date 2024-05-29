@@ -10,19 +10,19 @@ const ExploreItem = () => {
       src: Bathroom,
       name: "HEADPHONE",
       items: "28",
-      href: "/bathroom",
+      href: "product/headphone",
     },
     {
       src: Toilets,
       name: "EARBUDS",
       items: "18",
-      href: "/toilet",
+      href: "product/earbuds",
     },
     {
       src: Kitchen,
       name: "SPEAKER",
       items: "8",
-      href: "/kitchen",
+      href: "product/speaker",
     },
   ];
   return (
@@ -51,7 +51,7 @@ const ExploreItem = () => {
               <div className="p-5 text-center">
                 <Link href={product.href}>
                   <div className="mb-2 ">
-                   <h5 className="text-2xl  leading-[37.5px] font-semibold  tracking-tight bg-gradient-to-b from-yellow-400 to-orange-600 inline-block hover:text-transparent bg-clip-text max-sm:text-[16px] max-sm:leading-[24px]">{product.name}</h5> 
+                   <h5 className="text-2xl  leading-[37.5px] font-semibold  tracking-tight bg-[#facc15] inline-block hover:text-transparent bg-clip-text max-sm:text-[16px] max-sm:leading-[24px]">{product.name}</h5> 
                   </div>
                   
                 </Link>

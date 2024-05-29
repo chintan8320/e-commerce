@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Input from "@components/input";
 import Image from "next/image";
 import { HeaderLogo } from "@lib/config";
-import { useRouter } from "next/navigation";
 import GraySearch from "@utilis/graySearch";
 import SearchI from "@utilis/searchi";
 import LikeI from "@utilis/likei";
@@ -15,6 +14,7 @@ import { modalChange } from "@lib/features/features";
 import SideDrawer from "@components/SideDrawer";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 const navigation = [
   { name: "Home", href: "/", current: false },

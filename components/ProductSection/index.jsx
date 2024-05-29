@@ -1,14 +1,15 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SideDrawer from "@components/SideDrawer";
 import SimpleSliderS from "@components/SliderI";
 import { prodList } from "@components/ProductList/prod";
 import { useParams } from "next/navigation";
+import ApiInstance from "@components/ApiInstance/ApiInstance";
 
 const ProductSection = () => {
   const [count, setCount] = useState(1);
   const [openModal, setOpenModal] = useState(false);
-  const productList = prodList()
+  const [product, setProduct] = useState({})
   const params = useParams()
 
   const plus = () => {
@@ -28,14 +29,20 @@ const ProductSection = () => {
     return array.find(obj => obj.id == id);
   }
 
-  const product = findObjectById(productList , params.id )
+
+  useEffect(() => {
+    ApiInstance.get(`/product/${params.productId}`).then((res) => {
+      console.log(res?.data)
+      setProduct(res?.data)
+    })
+  }, [params])
 
   return (
     <div>
       <div className="container py-[100px]">
         <div className="grid gap-5 grid-cols-2 max-sm:grid-cols-1">
           <div>
-            <SimpleSliderS  src={product.src}/>
+            <SimpleSliderS  src={product?.file?.url}/>
           </div>
           {/* <div className="hidden font-medium text-center flex text-[50px] leading-[75px] max-sm:block">
               ENOX RING
@@ -88,15 +95,7 @@ const ProductSection = () => {
           Description:
         </div>
         <div className="font-normal text-[28px] leading-[42px] mt-[20px] max-sm:text-[20px] max-sm:leading-[30px]">
-          Features: Material – Stainless-Steel Finish - Nickel-chrome mirror
-          finish Stay above ground and countertop Free holds towels and napkin
-          as well as keeps them dry Provides storage and keeps them within reach
-          Rust proof and Non-corrosive Strong Build PLANTEX is a leading brand
-          in Home Improvement for all kinds of bathroom fittings and accessories
-          with material Stainless Steel, Aluminium, Brass & Acrylic. It is
-          suggested to clean this napkin holder for kitchen/bathroom/ashbasin
-          periodically. Use wet and dry clothes to keep dust and water droplets
-          off the product.
+          {product.description}
         </div>
       </div>
       {openModal && <SideDrawer />}

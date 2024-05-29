@@ -1,7 +1,9 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const OfferPage = () => {
+  const router = useRouter()
   return (
     <div className="offer_img items-center flex mt-20   max-sm:h-[94px] max-sm:mt-[2rem]">
       {/* <div className="absolute bg-black opacity-[0.4] h-[64%] w-full "></div> */}
@@ -17,7 +19,7 @@ const OfferPage = () => {
           </h5>
 
           <div>
-            <button class="bg-[#facc15] text-black rounded font-semibold py-2 px-4 mt-[30px] text-[16px] leading-[24px] max-sm:w-[77px] max-sm:h-[17px] max-sm:py-0 max-sm:px-0 max-sm:m-auto mt-2 max-sm:text-[7px] max-sm:leading-[12px] max-sm:mt-2  ">
+            <button class="bg-[#facc15] text-black rounded font-semibold py-2 px-4 mt-[30px] text-[16px] leading-[24px] max-sm:w-[77px] max-sm:h-[17px] max-sm:py-0 max-sm:px-0 max-sm:m-auto mt-2 max-sm:text-[7px] max-sm:leading-[12px] max-sm:mt-2" onClick={() => router.push('/product/all')}>
               VIEW DETAIL
             </button>
           </div>

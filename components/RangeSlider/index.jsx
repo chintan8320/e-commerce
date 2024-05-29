@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-const RangeSlider = () => {
-    const [minPrice, setMinPrice] = useState(70);
-    const [maxPrice, setMaxPrice] = useState(2500);
+const RangeSlider = ({setMinPrice, setMaxPrice, maxPrice, minPrice}) => {
+    
 
-    const min = 70;
-    const max = 2500;
+    const min = 10;
+    const max = 1000;
 
     const handleMinPriceChange = (e) => {
         const value = Math.min(Number(e.target.value), maxPrice - 70);
@@ -66,9 +65,6 @@ const RangeSlider = () => {
                 <div className='flex justify-between mt-1.5'>
                     <div className="flex items-center justify-center pt-5 space-x-4 text-sm text-gray-700">
                         <span>Price: {minPrice}RS - {maxPrice}RS</span>
-                    </div>
-                    <div className='flex items-center mt-4'>
-                        FILTER
                     </div>
                 </div>
             </div>

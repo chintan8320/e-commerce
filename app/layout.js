@@ -4,6 +4,8 @@ import Nav from "@container/Nav";
 import Footer from "@container/Footer";
 import ReduxProvider from "@lib/redux_provider";
 import Header from "@container/Header";
+import { ContextProvider } from "@lib/context_provider";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,10 +19,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
+        <ContextProvider>
           <Header />
           <Nav />
           {children}
           <Footer />
+        </ContextProvider>
         </ReduxProvider>
       </body>
     </html>

@@ -12,7 +12,7 @@ const AboutSection = ({ isHomePage }) => {
     <div className="container mt-20 max-sm:mt-10">
       <div className="text-center">
         <div>
-          <h6 className="bg-gradient-to-b  from-yellow-400 to-orange-600 inline-block text-transparent bg-clip-text font-medium text-[20px] leading-8 max-sm:flex max-sm:leading-[22.5px] max-sm:text-[15px] max-sm:justify-center">
+          <h6 className="bg-[#facc15] inline-block text-transparent bg-clip-text font-medium text-[20px] leading-8 max-sm:flex max-sm:leading-[22.5px] max-sm:text-[15px] max-sm:justify-center">
             ABOUT US
           </h6>
 

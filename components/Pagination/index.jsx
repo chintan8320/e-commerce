@@ -4,7 +4,7 @@ import { PaginationLeftArrow, PaginationRightArrow } from "@utilis/paginations";
 const Pagination = ({ totalPages, currentPage, onPageChange }) => {
     const activePageClass = (page) => {
         return currentPage === page
-            ? 'w-[40px] h-[40px] rounded bg-gradient-to-b from-yellow-400 to-orange-600'
+            ? 'w-[40px] h-[40px] rounded bg-[#facc15]'
             : 'w-[40px] h-[40px] rounded bg-[#F0F0F0]';
     };
 

@@ -45,13 +45,7 @@ const SimpleSlider = () => {
         </h3>
       </div>
       <div className="relative mb-14">
-        <Image
-          className="hidden md:block absolute right-[2rem] mt-[-70px] max-sm:hidden"
-          src={Square}
-          width={160}
-          height={160}
-          alt="Square Group"
-        />
+        
         <div className="m-auto max-w-[1092px] md:h-[450px] bg-white shadow-[0_0px_24px_0px_rgba(0,0,0,0.16)] border-[1px] border-solid border-[#faefef] md:rounded-tl-[170px] rounded-t-none md:rounded-br-[170px] rounded-b-none  max-sm:rounded-tl-[50px] max-sm:rounded-br-[50px]">
           <Slider
             {...settings}

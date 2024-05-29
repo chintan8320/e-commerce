@@ -4,9 +4,14 @@ import CloseIcon from "@utilis/Close";
 import CartBI from "@utilis/cartBI";
 import { useSelector, useDispatch } from "react-redux";
 import { removeWishList , modalChange , addProduct} from "@lib/features/features";
+import ApiInstance from "@components/ApiInstance/ApiInstance";
+import { UserContext } from "@lib/context_provider";
+import { useContext, useEffect, useState } from "react";
 
 const WishListSec = () => {
+  const [wishLists, setWishLists] = useState([])
     const dispatch = useDispatch()
+    const user = useContext(UserContext);
     const wishList = useSelector((state) => state.sideModal.wishList);
 
     const handleCart = (obj) => {
@@ -15,15 +20,39 @@ const WishListSec = () => {
 
     }
 
+    const getWishList = () => {
+      ApiInstance.get(`/${user}`).then((res) => {
+        setWishLists(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+
+    const deleteWishList = (productId) => {
+      ApiInstance.delete(`/${user}/wishlist/${productId}`)
+      .then((res) => {
+        console.log(res)
+        getWishList()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+
+    useEffect(() => {
+      getWishList()
+    }, [])
+
   return (
     <div className="container py-[100px] ">
-      {wishList.map((obj) => (
+      {wishLists.length > 0 ? wishLists.map((obj) => (
             <div key={obj.id} className="border border-[#000000] border-opacity-[30%]">
             <div className="flex justify-between">
               <div className="border-r border-[#000000] border-opacity-[30%] p-[14px] max-sm:p-[5px]">
                 <div className="bg-[#ECECEC] py-[23px] px-[12px] max-sm:py-[10px] max-sm:px-[5px]">
                   <Image
-                    src={obj.src}
+                    src={obj.file.url}
                     width={100}
                     height={131}
                     alt={obj.name}
@@ -39,12 +68,9 @@ const WishListSec = () => {
                   <div className="font-normal text-[20px] leading-[30px] max-sm:text-[10px] max-sm:leading-[15px] text-black opacity-[50%]">
                     Rs. {obj.price}/-
                   </div>
-                  <div className="font-normal text-[20px] leading-[30px] max-sm:text-[10px] max-sm:leading-[15px] text-black opacity-[50%]">
-                    January 15, 2020
-                  </div>
                 </div>
                 <div>
-                  <button className="flex font-medium text-[16px] leading-[24px] bg-gradient-to-b  from-yellow-400 to-orange-600 items-center gap-[10px] p-[12px] max-sm:text-[7px] max-sm:leading-[5px] max-sm:p-[5px]">
+                  <button className="flex font-medium text-[16px] leading-[24px] bg-[#facc15] items-center gap-[10px] p-[12px] max-sm:text-[7px] max-sm:leading-[5px] max-sm:p-[5px]">
                     <div className="max-sm:hidden">
                       <CartBI />
                     </div>
@@ -53,13 +79,13 @@ const WishListSec = () => {
                 </div>
               </div>
               <div className="border-l border-[#000000] border-opacity-[30%] flex items-center px-[28px] max-sm:px-[5px]">
-                <button onClick={() => dispatch(removeWishList(obj.id))}>
+                <button onClick={() => deleteWishList(obj._id)}>
                   <CloseIcon />
                 </button>
               </div>
             </div>
           </div>
-        ))}
+        )) : <div> NO FOUND </div>}
       
     </div>
   );

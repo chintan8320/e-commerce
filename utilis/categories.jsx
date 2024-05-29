@@ -1,6 +1,6 @@
 import React from "react";
 
-export const WishList = () => {
+export const WishList = ({fill_color}) => {
   return (
     <svg
       width="19"
@@ -15,7 +15,7 @@ export const WishList = () => {
         className="hovered-svg"
         d="M6.5 1C3.4625 1 1 3.43477 1 6.43806C1 11.8761 7.5 16.8198 11 17.9697C14.5 16.8198 21 11.8761 21 6.43806C21 3.43477 18.5375 1 15.5 1C13.64 1 11.995 1.9131 11 3.31068C10.4928 2.59642 9.81908 2.0135 9.03577 1.61128C8.25245 1.20906 7.38265 0.999384 6.5 1Z"
         stroke="black"
-        fill="none"
+        fill={fill_color}
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"

@@ -8,7 +8,7 @@ const Footer = () => {
   const page = [
     { name: "Home", href: "/"},
   { name: "About us", href: "/about"},
-  { name: "Products", href: "/products"},
+  { name: "Products", href: "/product/all"},
   { name: "Categories", href: "/category"},
   { name: "Contact", href: "/contact"},
   ];
@@ -57,16 +57,16 @@ to our Customers.
             </div>
             <div className="flex mt-4 gap-[10px]">
               <div className="bg-white rounded-full flex w-[30px] h-[30px] items-center justify-center">
-                <YouTube />
+                <Link href="https://www.youtube.com/"><YouTube /></Link>
               </div>
               <div className="bg-white rounded-full flex w-[30px] h-[30px] items-center justify-center">
-                <Facebook />
+                <Link href="https://www.facebook.com/"><Facebook /></Link>
               </div>
               <div className="bg-white rounded-full flex w-[30px] h-[30px] items-center justify-center">
-                <Twitter />
+                <Link href="https://x.com/?lang=en"><Twitter /></Link>
               </div>
               <div className="bg-white rounded-full flex w-[30px] h-[30px] items-center justify-center">
-                <Instagram />
+                <Link href="https://www.instagram.com/"><Instagram /></Link>
               </div>
             </div>
           </div>

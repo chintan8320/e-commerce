@@ -5,7 +5,6 @@ import Link from "next/link";
 const HeroSection = () => {
   return (
     <div className="bg_hero flex items-center max-sm:h-[160px] max-sm:w-[100%]">
-      {/* <div className="absolute bg-black opacity-[0.2] h-[96%] w-full "></div> */}
       <div className="container relative">
         <div className="flex items-center h-[100%]">
           <div class="grid grid-cols-1">
@@ -29,7 +28,7 @@ const HeroSection = () => {
             </div>
             <div className="max-sm:m-auto">
             <button class="bg-[#facc15] font-semibold py-2 px-4  w-[155px] h-[50px] mt-[30px] text-[16px]  max-sm:justify-center leading-[24px] max-sm:w-[6rem] max-sm:h-[28px] max-sm:text-[10px] max-sm:mt-2 max-sm:flex  max-sm:items-center rounded">
-              <Link href="/products">SHOP NOW</Link>
+              <Link href="/product/all">SHOP NOW</Link>
               </button>
             </div>
           </div>
