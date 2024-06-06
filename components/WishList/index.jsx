@@ -7,9 +7,11 @@ import { removeWishList , modalChange , addProduct} from "@lib/features/features
 import ApiInstance from "@components/ApiInstance/ApiInstance";
 import { UserContext } from "@lib/context_provider";
 import { useContext, useEffect, useState } from "react";
+import Loader from "react-js-loader";
 
 const WishListSec = () => {
   const [wishLists, setWishLists] = useState([])
+  const [loader, setLoader] = useState([])
     const dispatch = useDispatch()
     const user = useContext(UserContext);
     const wishList = useSelector((state) => state.sideModal.wishList);
@@ -21,11 +23,14 @@ const WishListSec = () => {
     }
 
     const getWishList = () => {
+      setLoader(true)
       ApiInstance.get(`/${user}`).then((res) => {
         setWishLists(res.data)
+        setLoader(false)
       })
       .catch((err) => {
         console.log(err)
+        setLoader(false)
       })
     }
 
@@ -85,7 +90,7 @@ const WishListSec = () => {
               </div>
             </div>
           </div>
-        )) : <div> NO FOUND </div>}
+        )) : <div className="flex bg-[#ECECEC] w-full col-span-3 justify-evenly p-[10px]">{loader ? 'Loading...': 'No found'}</div>}
       
     </div>
   );

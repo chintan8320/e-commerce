@@ -3,18 +3,18 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { WishList, QuickView, Compare, Troli } from "@utilis/categories";
 import Pagination from "@components/Pagination";
-import SearchBar from "@components/SearchBar";
 import { useDispatch } from "react-redux";
 import ApiInstance from "@components/ApiInstance/ApiInstance";
 import { useParams, useRouter } from "next/navigation";
 import { UserContext } from "@lib/context_provider";
-import RangeSlider from "@components/RangeSlider";
 import { SearchIcon } from "@utilis/searchIcons";
+import toast, { Toaster } from "react-hot-toast";
 
 const ProducList = () => {
   const [hovered, setHovered] = useState(null);
   const [productList, setProductList] = useState([]);
   const [wishLists, setWishLists] = useState([])
+  const [loader, setLoader] = useState([])
   const [minPrice, setMinPrice] = useState(10);
   const [maxPrice, setMaxPrice] = useState(1000);
   const [searchQuery, setSearchQuery] = useState("");
@@ -36,15 +36,21 @@ const ProducList = () => {
     setCurrentPage(page);
   };
 
-  const handleAddToCart = (product) => {
-    dispatch(modalChange(true));
-    dispatch(addProduct(product));
+  const handleAddToCart = (productId) => {
+    ApiInstance.post("/orders", { userId: user, productId: productId })
+      .then((res) => {
+        toast.success('Product is added to cart')
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleWishList = (productId) => {
     ApiInstance.post("/wishList", { userId: user, productId: productId })
       .then((res) => {
-        console.log(res);
+        toast.success('Product is added to wishlist')
         handleAddWishList()
       })
       .catch((err) => {
@@ -55,7 +61,7 @@ const ProducList = () => {
   const deleteWishList = (productId) => {
     ApiInstance.delete(`/${user}/wishlist/${productId}`)
     .then((res) => {
-      console.log(res)
+      toast.success('Product is deleted to wishlist')
       handleAddWishList()
     })
     .catch((err) => {
@@ -64,6 +70,7 @@ const ProducList = () => {
   }
 
   const getAllProduct = () => {
+    setLoader(true)
     let query = `/product/get?category=${params.id}`;
     if (searchQuery) {
       query += `&searchQuery=${searchQuery}`;
@@ -77,12 +84,17 @@ const ProducList = () => {
     ApiInstance.get(query).then((res) => {
       setProductList(res?.data);
       console.log(res?.data, params);
-    });
+      setLoader(false)
+    }).catch((err) => {
+      console.log(err)
+      setLoader(false)
+    })
   }
 
   const handleAddWishList = () => {
     ApiInstance.get(`/${user}`).then((res) => {
       setWishLists(res.data.map((item) => item._id))
+      
     })
     .catch((err) => {
       console.log(err)
@@ -101,6 +113,7 @@ const ProducList = () => {
 
   return (
     <div className="container py-20">
+      <Toaster />
       <div className="grid grid-cols-4 xl:grid-cols-3 max-lg:grid-cols-2 md:grid-cols-2 gap-3 max-sm:grid-cols-1">
         <div className="col-span-3  md:col-span-3 max-md:order-2 ">
           {/* <ButtonsCategory title='All'/> */}
@@ -124,7 +137,7 @@ const ProducList = () => {
             </div>
           
           <div className="grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 max-sm:grid-cols-1 md:pl-[55px]  gap-4 my-[5rem] max-sm:flex max-sm:flex-col max-sm:justify-evenly max-sm:items-center">
-            {paginatedItems.map((product, index) => (
+            {paginatedItems.length > 0 ?paginatedItems.map((product, index) => (
               <div
                 key={index}
                 className={`h-[452px] w-[277px] flex flex-col items-center justify-around hover:shadow-md `}
@@ -198,14 +211,14 @@ const ProducList = () => {
                       }`}
                     >
                       <Troli />
-                      <button onClick={() => handleAddToCart(product)}>
+                      <button onClick={() => handleAddToCart(product._id)}>
                         <span className="ml-2 text-white">Add to Cart</span>
                       </button>
                     </div>
                   )}
                 </div>
               </div>
-            ))}
+            )): <div className="flex bg-[#ECECEC] w-full col-span-3 justify-evenly p-[10px]">{loader ? 'Loading...' : 'No found'}</div>}
           </div>
           <Pagination
             totalPages={totalPages}

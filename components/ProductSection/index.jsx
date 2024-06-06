@@ -1,23 +1,31 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SideDrawer from "@components/SideDrawer";
 import SimpleSliderS from "@components/SliderI";
 import { prodList } from "@components/ProductList/prod";
 import { useParams } from "next/navigation";
 import ApiInstance from "@components/ApiInstance/ApiInstance";
+import { useDispatch, useSelector } from "react-redux";
+import { UserContext } from "@lib/context_provider";
+import { modalChange } from "@lib/features/features";
 
 const ProductSection = () => {
   const [count, setCount] = useState(1);
   const [openModal, setOpenModal] = useState(false);
   const [product, setProduct] = useState({})
   const params = useParams()
+  const user = useContext(UserContext);
+  const open = useSelector((state) => state.sideModal.modalStatus)
+  const dispatch = useDispatch()  
 
   const plus = () => {
     setCount(count + 1);
+    handleAddToCart()
   };
 
   const minus = () => {
     setCount(count - 1);
+    handleDelete()
   };
 
   const cons = () => {
@@ -29,13 +37,54 @@ const ProductSection = () => {
     return array.find(obj => obj.id == id);
   }
 
+  const handleRe = () => {
+    dispatch(modalChange(true))
+    
+  }
+  const handleDelete = () => {
+    ApiInstance.delete(`/${user}/oneorders/${params.productId}`)
+    .then((res) => {
+      getAllOrders()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
+  const getCountOfIdOccurrences = (arr) => {
+    let count = 0;
+    for (const obj of arr) {
+      if (obj._id === params.productId) {
+        count++;
+      }
+    }
+    setCount(count)
+  };
+
+  const getAll = () => {
+    ApiInstance.get(`/orders/${user}`).then((res) => {
+      console.log(res.data,'res')
+      getCountOfIdOccurrences(res.data)
+    })
+  }
+  const handleAddToCart = () => {
+    ApiInstance.post("/orders", { userId: user, productId: params.productId })
+      .then((res) => {
+        console.log('success')
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
 
   useEffect(() => {
     ApiInstance.get(`/product/${params.productId}`).then((res) => {
       console.log(res?.data)
       setProduct(res?.data)
     })
-  }, [params])
+    getAll()
+  }, [])
 
   return (
     <div>
@@ -81,7 +130,10 @@ const ProductSection = () => {
               </div>
               <button
                 className="w-[155px] h-[50px] bg-gradient-to-b  from-yellow-400 to-orange-600 rounded-[3px]"
-                onClick={() => console.log(product)}
+                onClick={() => {
+                  handleAddToCart()
+                  handleRe()
+                }}
               >
                 <div className="font-medium text-[16px] leading-[24px] ">
                   ADD TO CART
@@ -98,7 +150,7 @@ const ProductSection = () => {
           {product.description}
         </div>
       </div>
-      {openModal && <SideDrawer />}
+      {open && <SideDrawer user={user}/>}
     </div>
   );
 };

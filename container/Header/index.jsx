@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Input from "@components/input";
 import Image from "next/image";
 import { HeaderLogo } from "@lib/config";
@@ -8,13 +8,14 @@ import SearchI from "@utilis/searchi";
 import LikeI from "@utilis/likei";
 import CartI from "@utilis/carti";
 import ProfileI from "@utilis/profilei";
-import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { modalChange } from "@lib/features/features";
 import SideDrawer from "@components/SideDrawer";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import { UserContext } from "@lib/context_provider";
+import Cookies from "js-cookie";
 
 const navigation = [
   { name: "Home", href: "/", current: false },
@@ -32,10 +33,11 @@ const HeaderSection = () => {
   const [isOpenSearch, setIsOpenSearch] = useState(false);
   const router = useRouter()
   const open = useSelector((state) => state.sideModal.modalStatus)
+  
  
   const dispatch = useDispatch()  
   
-  
+  const user = useContext(UserContext);
   const [navi, setNavi] = useState([...navigation]);
 
   const handleClick = (item) => {
@@ -51,10 +53,16 @@ const HeaderSection = () => {
     setIsOpenSearch(!isOpenSearch);
   };
 
+  
+
   const handleRe = () => {
     dispatch(modalChange(true))
     
   }
+
+  
+  
+
 
   return (
     <div className="container">
@@ -197,13 +205,10 @@ const HeaderSection = () => {
 
         <div className="flex gap-[1px]">
           <div className="px-1.5 cursor-pointer">
-            <button
-              onClick={() => {
-                router.push("/login");
-              }}
-            >
-              <ProfileI className="h-5 w-5" />
-            </button>
+          <button onClick={() => router.push('/login')}>
+        <ProfileI className="h-5 w-5" />
+      </button>
+      
           </div>
           <div className="px-1.5 cursor-pointer">
             <button
@@ -220,7 +225,7 @@ const HeaderSection = () => {
             </button>
           </div>
           {
-            open && <SideDrawer/>
+            open && <SideDrawer user={user}/>
           }
         </div>
       </div>

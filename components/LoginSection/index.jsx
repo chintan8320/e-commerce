@@ -30,7 +30,7 @@ const LoginSection = () => {
       email: val?.email,
       password: val?.password,
     };
-    ApiInstance.post("/login", data).then((res) => {
+    ApiInstance.post("/login", data, { withCredentials: true }).then((res) => {
       localStorage.setItem('token', res?.data?.token)
       toast.success("Login Successfully");
       setTimeout(() => {
