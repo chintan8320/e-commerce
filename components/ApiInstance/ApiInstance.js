@@ -6,7 +6,7 @@ const ApiInstance = axios.create({
 
 
 ApiInstance.interceptors.request.use((config) => {
-  const token = localStorage?.getItem('token')
+  const token = global.localStorage?.getItem('token')
   console.log(token, 'token-----')
   config.headers["x-access-token"] = token;
   return config;
