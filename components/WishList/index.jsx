@@ -1,13 +1,11 @@
-import { RoseGold } from "@lib/config";
 import Image from "next/image";
 import CloseIcon from "@utilis/Close";
 import CartBI from "@utilis/cartBI";
 import { useSelector, useDispatch } from "react-redux";
-import { removeWishList , modalChange , addProduct} from "@lib/features/features";
+import { modalChange , addProduct} from "@lib/features/features";
 import ApiInstance from "@components/ApiInstance/ApiInstance";
 import { UserContext } from "@lib/context_provider";
 import { useContext, useEffect, useState } from "react";
-import Loader from "react-js-loader";
 
 const WishListSec = () => {
   const [wishLists, setWishLists] = useState([])
