@@ -5,8 +5,8 @@ const ButtonsCategory = (props) => {
 
     return (
         <div className="flex justify-evenly">
-            {buttonlist.map((item) => (
-                item.name !== props.title && <Link href={item.link} className=" px-[90px] py-[10px] bg-[#facc15] rounded">{item.name}</Link>
+            {buttonlist.map((item, index) => (
+                item.name !== props.title && <Link key={index} href={item.link} className=" px-[90px] py-[10px] bg-[#facc15] rounded">{item.name}</Link>
             ))}
         </div>
     )
