@@ -5,6 +5,7 @@ import Link from "next/link";
 import ApiInstance from "@components/ApiInstance/ApiInstance";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const LoginSection = () => {
   const router = useRouter()
@@ -32,6 +33,7 @@ const LoginSection = () => {
     };
     ApiInstance.post("/login", data, { withCredentials: true }).then((res) => {
       localStorage.setItem('token', res?.data?.token)
+      Cookies.set("token", res?.data?.token);
       toast.success("Login Successfully");
       setTimeout(() => {
         router.push("/");
