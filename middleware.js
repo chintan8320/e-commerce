@@ -3,15 +3,15 @@ import { NextResponse } from "next/server";
 
 
 export function middleware(request){
-    // const token = request.cookies.get("jwt")?.value;
-    // console.log(token,'tok')
+    const token = request.cookies.get("jwtToken")?.value;
+    
 
-    // if(!token){
-    //     return NextResponse.redirect(
-    //         new URL('/login', request.url)
-    //     )
-    // }
-    // return NextResponse.next()
+    if(!token){
+        return NextResponse.redirect(
+            new URL('/login', request.url)
+        )
+    }
+    return NextResponse.next()
 }
 
 export const config = {
