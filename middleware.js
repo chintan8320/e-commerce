@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 
 export function middleware(request){
-    const token = request.cookies.get("jwtToken")?.value;
+    const token = request.cookies.get("_vercel_jwt")?.value;
     
 
     if(!token){
