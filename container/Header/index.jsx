@@ -16,6 +16,8 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { UserContext } from "@lib/context_provider";
 import Cookies from "js-cookie";
+import { Button, Menu, MenuItem } from "@mui/material";
+import { Cookie } from "next/font/google";
 
 const navigation = [
   { name: "Home", href: "/", current: false },
@@ -31,12 +33,11 @@ function classNames(...classes) {
 }
 const HeaderSection = () => {
   const [isOpenSearch, setIsOpenSearch] = useState(false);
-  const router = useRouter()
-  const open = useSelector((state) => state.sideModal.modalStatus)
-  
- 
-  const dispatch = useDispatch()  
-  
+  const router = useRouter();
+  const open = useSelector((state) => state.sideModal.modalStatus);
+
+  const dispatch = useDispatch();
+
   const user = useContext(UserContext);
   const [navi, setNavi] = useState([...navigation]);
 
@@ -53,16 +54,29 @@ const HeaderSection = () => {
     setIsOpenSearch(!isOpenSearch);
   };
 
-  
-
   const handleRe = () => {
-    dispatch(modalChange(true))
-    
+    dispatch(modalChange(true));
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const openModal = Boolean(anchorEl);
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+
+  const handleLogOut = () => {
+    Cookies.remove('token')
+    handleClose()
   }
 
-  
-  
-
+  const handleLogin = () => {
+    router.push('/login')
+    handleClose()
+  }
 
   return (
     <div className="container">
@@ -203,30 +217,59 @@ const HeaderSection = () => {
           )}
         </div>
 
-        <div className="flex gap-[1px]">
-          <div className="px-1.5 cursor-pointer">
-          <button onClick={() => router.push('/login')}>
-        <ProfileI className="h-5 w-5" />
-      </button>
-      
+        <div className="flex">
+            <div className="cursor-pointer">
+              <Button
+                id="fade-button"
+                className="p-0"
+                aria-controls={openModal ? "fade-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={openModal ? "true" : undefined}
+                onClick={handleMenu}
+              >
+                <ProfileI className="h-5 w-5" />
+              </Button>
+              {Cookies.get('token') ? <Menu
+                id="fade-menu"
+                MenuListProps={{
+                  "aria-labelledby": "fade-button",
+                }}
+                anchorEl={anchorEl}
+                open={openModal}
+                onClose={handleClose}
+                
+              >
+                <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
+              </Menu> : <Menu
+                id="fade-menu"
+                MenuListProps={{
+                  "aria-labelledby": "fade-button",
+                }}
+                anchorEl={anchorEl}
+                open={openModal}
+                onClose={handleClose}
+                
+              >
+                <MenuItem onClick={handleLogin}>Log In</MenuItem>
+              </Menu> }
           </div>
-          <div className="px-1.5 cursor-pointer">
-            <button
+          <div className="cursor-pointer">
+            <Button
+            className="p-0 "
               onClick={() => {
                 router.push("/wishlist");
               }}
             >
               <LikeI className="h-5 w-5" />
-            </button>
+            </Button>
           </div>
-          <div className="px-1.5 cursor-pointer">
-            <button onClick={() => handleRe()}>
+          <div className="cursor-pointer">
+            <Button onClick={() => handleRe()} className="p-0">
+            
               <CartI className="h-5 w-5" />
-            </button>
+            </Button>
           </div>
-          {
-            open && <SideDrawer user={user}/>
-          }
+          {open && <SideDrawer user={user} />}
         </div>
       </div>
     </div>
